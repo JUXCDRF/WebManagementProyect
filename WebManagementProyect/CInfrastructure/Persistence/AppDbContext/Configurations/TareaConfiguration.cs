@@ -14,20 +14,33 @@ namespace WebManagementProyect.CInfrastructure.Persistence.AppDbContext.Configur
             entity.HasKey(e => e.Id).HasName("PK__Tareas__3214EC07BE7A3AA6");
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.Titulo)
+                .IsRequired()
+                .HasMaxLength(100);
+            entity.Property(e => e.Descripcion)
+                .IsRequired()
+                .HasMaxLength(500)
+                .IsUnicode(false);
+            entity.Property(e => e.Estado)
+                .IsRequired();
             entity.Property(e => e.DescEstado)
                 .IsRequired()
                 .HasMaxLength(100)
                 .IsUnicode(false);
-            entity.Property(e => e.FechaEliminado)
-                .HasDefaultValueSql("(getdate())")
+            entity.Property(e => e.FechaLimite)
                 .HasColumnType("datetime");
-            entity.Property(e => e.FechaLimite).HasColumnType("datetime");
+
+            entity.Property(e => e.FechaCreacion)
+                .IsRequired()
+                .HasColumnType("datetime");
+            entity.Property(e => e.Eliminado)
+               .IsRequired();
+            entity.Property(e => e.FechaEliminado)
+                .HasColumnType("datetime");
             entity.Property(e => e.MotivoEliminado)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.Titulo)
-                .IsRequired()
-                .HasMaxLength(100);
+
 
             entity.HasOne(d => d.IdProyectoNavigation).WithMany(p => p.Tareas)
                 .HasForeignKey(d => d.IdProyecto)

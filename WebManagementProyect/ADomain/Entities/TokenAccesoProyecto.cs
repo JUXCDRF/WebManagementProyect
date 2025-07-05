@@ -2,13 +2,12 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using WebManagementProyect.ADomain.Entities;
 
 namespace WebManagementProyect.CInfrastructure.Persistence.AppDbContext;
 
-public partial class TokenAccesoProyecto
+public partial class TokenAccesoProyecto: EntidadBase   
 {
-    public Guid Id { get; set; }
-
     public Guid IdToken { get; set; }
 
     public Guid IdProyecto { get; set; }

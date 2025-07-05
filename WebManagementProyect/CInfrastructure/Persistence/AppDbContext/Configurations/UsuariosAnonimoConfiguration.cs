@@ -16,15 +16,28 @@ namespace WebManagementProyect.CInfrastructure.Persistence.AppDbContext.Configur
             entity.ToTable("UsuariosAnonimo");
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-            entity.Property(e => e.FechaCreacion)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
+            entity.Property(e => e.Deshabilitado)
+                .IsRequired();
             entity.Property(e => e.FechaDeshabilitado)
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
             entity.Property(e => e.MotivoDeshabilitado)
                 .HasMaxLength(50)
                 .IsUnicode(false);
+
+
+            entity.Property(e => e.FechaCreacion)
+                .IsRequired()
+                .HasColumnType("datetime");
+            entity.Property(e => e.Eliminado)
+               .IsRequired();
+            entity.Property(e => e.FechaEliminado)
+                .HasColumnType("datetime");
+            entity.Property(e => e.MotivoEliminado)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+
+
 
             entity.HasOne(d => d.IdTokenNavigation).WithMany(p => p.UsuariosAnonimos)
                 .HasForeignKey(d => d.IdToken)

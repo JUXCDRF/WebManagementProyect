@@ -16,19 +16,29 @@ namespace WebManagementProyect.CInfrastructure.Persistence.AppDbContext.Configur
             entity.ToTable("Token");
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
-            entity.Property(e => e.FechaAnulado)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.FechaCreacion)
-                .HasDefaultValueSql("(getdate())")
-                .HasColumnType("datetime");
-            entity.Property(e => e.MotivoAnulado)
-                .HasMaxLength(50)
-                .IsUnicode(false);
             entity.Property(e => e.TokenHash)
                 .IsRequired()
                 .HasMaxLength(256)
                 .IsUnicode(false);
+            entity.Property(e => e.Anulado)
+                .IsRequired();
+            entity.Property(e => e.FechaAnulado)
+                .HasColumnType("datetime");
+            entity.Property(e => e.MotivoAnulado)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+
+            entity.Property(e => e.FechaCreacion)
+                .IsRequired()
+                .HasColumnType("datetime");
+            entity.Property(e => e.Eliminado)
+               .IsRequired();
+            entity.Property(e => e.FechaEliminado)
+                .HasColumnType("datetime");
+            entity.Property(e => e.MotivoEliminado)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+
 
             OnConfigurePartial(entity);
         }

@@ -2,16 +2,13 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using WebManagementProyect.ADomain.Entities;
 
 namespace WebManagementProyect.CInfrastructure.Persistence.AppDbContext;
 
-public partial class Token
+public partial class Token: EntidadBase
 {
-    public Guid Id { get; set; }
-
     public string TokenHash { get; set; }
-
-    public DateTime FechaCreacion { get; set; }
 
     public bool Anulado { get; set; }
 

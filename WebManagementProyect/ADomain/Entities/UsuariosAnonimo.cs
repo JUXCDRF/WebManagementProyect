@@ -2,16 +2,13 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using WebManagementProyect.ADomain.Entities;
 
 namespace WebManagementProyect.CInfrastructure.Persistence.AppDbContext;
 
-public partial class UsuariosAnonimo
+public partial class UsuariosAnonimo: EntidadBase
 {
-    public Guid Id { get; set; }
-
     public Guid IdToken { get; set; }
-
-    public DateTime FechaCreacion { get; set; }
 
     public bool Deshabilitado { get; set; }
 

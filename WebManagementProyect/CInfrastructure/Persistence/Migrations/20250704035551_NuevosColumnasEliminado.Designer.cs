@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebManagementProyect.CInfrastructure.Persistence.AppDbContext;
 
@@ -11,9 +12,11 @@ using WebManagementProyect.CInfrastructure.Persistence.AppDbContext;
 namespace WebManagementProyect.Cinfrastructure.Persistence.Migrations
 {
     [DbContext(typeof(Proyectos_EPSContext))]
-    partial class Proyectos_EPSContextModelSnapshot : ModelSnapshot
+    [Migration("20250704035551_NuevosColumnasEliminado")]
+    partial class NuevosColumnasEliminado
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -41,6 +44,7 @@ namespace WebManagementProyect.Cinfrastructure.Persistence.Migrations
                         .HasColumnType("datetime");
 
                     b.Property<string>("MotivoEliminado")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
@@ -94,6 +98,7 @@ namespace WebManagementProyect.Cinfrastructure.Persistence.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("MotivoEliminado")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
@@ -139,6 +144,7 @@ namespace WebManagementProyect.Cinfrastructure.Persistence.Migrations
                         .HasColumnType("varchar(50)");
 
                     b.Property<string>("MotivoEliminado")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
@@ -190,6 +196,7 @@ namespace WebManagementProyect.Cinfrastructure.Persistence.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("MotivoEliminado")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
@@ -247,6 +254,7 @@ namespace WebManagementProyect.Cinfrastructure.Persistence.Migrations
                         .HasColumnType("varchar(50)");
 
                     b.Property<string>("MotivoEliminado")
+                        .IsRequired()
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");

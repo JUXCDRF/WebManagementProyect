@@ -16,13 +16,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ADomain\InterfacesRepository\" />
-    <Folder Include="BApplication\Dtos\" />
     <Folder Include="BApplication\InterfacesService\" />
-    <Folder Include="BApplication\UseCases\" />
     <Folder Include="CInfrastructure\Persistence\AppDbContext\" />
     <Folder Include="CInfrastructure\Services\" />
-    <Folder Include="CInfrastructure\Repositories\" />
     <Folder Include="EShared\Extensions\" />
   </ItemGroup>
 

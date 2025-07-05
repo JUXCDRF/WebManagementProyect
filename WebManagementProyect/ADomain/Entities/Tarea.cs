@@ -2,13 +2,12 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using WebManagementProyect.ADomain.Entities;
 
 namespace WebManagementProyect.CInfrastructure.Persistence.AppDbContext;
 
-public partial class Tarea
+public partial class Tarea : EntidadBase
 {
-    public Guid Id { get; set; }
-
     public Guid IdProyecto { get; set; }
 
     public string Titulo { get; set; }
@@ -20,12 +19,6 @@ public partial class Tarea
     public string DescEstado { get; set; }
 
     public DateTime? FechaLimite { get; set; }
-
-    public bool Eliminado { get; set; }
-
-    public DateTime? FechaEliminado { get; set; }
-
-    public string MotivoEliminado { get; set; }
 
     public virtual Proyecto IdProyectoNavigation { get; set; }
 }

@@ -20,6 +20,21 @@ namespace WebManagementProyect.CInfrastructure.Persistence.AppDbContext.Configur
                 .IsRequired()
                 .HasMaxLength(20)
                 .IsUnicode(false);
+            entity.Property(e => e.Lectura)
+                .IsRequired();
+            entity.Property(e => e.Editar)
+                .IsRequired();
+
+            entity.Property(e => e.FechaCreacion)
+                .IsRequired()
+                .HasColumnType("datetime");
+            entity.Property(e => e.Eliminado)
+                   .IsRequired();
+            entity.Property(e => e.FechaEliminado)
+                .HasColumnType("datetime");
+            entity.Property(e => e.MotivoEliminado)
+                .HasMaxLength(50)
+                .IsUnicode(false);
 
             entity.HasOne(d => d.IdColaboradorNavigation).WithMany(p => p.TokenAccesoProyectoIdColaboradorNavigations)
                 .HasForeignKey(d => d.IdColaborador)

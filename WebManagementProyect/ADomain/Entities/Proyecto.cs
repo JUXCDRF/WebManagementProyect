@@ -2,22 +2,13 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using WebManagementProyect.ADomain.Entities;
 
 namespace WebManagementProyect.CInfrastructure.Persistence.AppDbContext;
 
-public partial class Proyecto
+public partial class Proyecto: EntidadBase
 {
-    public Guid Id { get; set; }
-
     public string NombreProyecto { get; set; }
-
-    public DateTime? FechaCreacion { get; set; }
-
-    public bool Eliminado { get; set; }
-
-    public DateTime? FechaEliminado { get; set; }
-
-    public string MotivoEliminado { get; set; }
 
     public virtual ICollection<Tarea> Tareas { get; set; } = new List<Tarea>();
 

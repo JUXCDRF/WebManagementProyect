@@ -16,16 +16,20 @@ namespace WebManagementProyect.CInfrastructure.Persistence.AppDbContext.Configur
             entity.ToTable("Proyecto");
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.NombreProyecto).IsRequired().HasMaxLength(100);
+            
+            
             entity.Property(e => e.FechaCreacion)
+                .IsRequired()
                 .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
+            entity.Property(e => e.Eliminado)
+                .IsRequired();
             entity.Property(e => e.FechaEliminado)
-                .HasDefaultValueSql("(getdate())")
                 .HasColumnType("datetime");
             entity.Property(e => e.MotivoEliminado)
                 .HasMaxLength(50)
                 .IsUnicode(false);
-            entity.Property(e => e.NombreProyecto).HasMaxLength(100);
 
             OnConfigurePartial(entity);
         }
