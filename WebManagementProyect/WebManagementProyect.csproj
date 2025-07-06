@@ -19,7 +19,6 @@
     <Folder Include="BApplication\InterfacesService\" />
     <Folder Include="CInfrastructure\Persistence\AppDbContext\" />
     <Folder Include="CInfrastructure\Services\" />
-    <Folder Include="EShared\Extensions\" />
   </ItemGroup>
 
 </Project>

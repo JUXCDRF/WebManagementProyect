@@ -5,6 +5,7 @@ using System.Linq;
 using WebManagementProyect.BApplication.Dtos;
 using WebManagementProyect.BApplication.UseCases.TokenUseCases.ListarToken;
 using WebManagementProyect.BApplication.UseCases.TokenUseCases.RegisterToken;
+using WebManagementProyect.EShared.Share;
 
 namespace WebManagementProyect.DPresentation.Controllers
 {
@@ -26,7 +27,7 @@ namespace WebManagementProyect.DPresentation.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var modalStateListaError = ModelState.Where(x => x.Value.Errors.Count > 0).SelectMany(x => x.Value.Errors.Select(e => new ModalStateErrorDtoResponse { Campo=x.Key,Message=e.ErrorMessage })).ToList();
+                var modalStateListaError = ConstantesFunciones.ObtenerModalStateError(ModelState);
                 return TypedResults.BadRequest(modalStateListaError); // devuelve errores de validación automáticamente
             }
             var resultado = await _handlerRegistrar.Handle(register);
