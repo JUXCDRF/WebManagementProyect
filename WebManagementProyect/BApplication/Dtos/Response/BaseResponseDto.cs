@@ -1,4 +1,4 @@
-﻿namespace WebManagementProyect.BApplication.Dtos;
+﻿namespace WebManagementProyect.BApplication.Dtos.Response;
 
 public class BaseResponseDto
 {

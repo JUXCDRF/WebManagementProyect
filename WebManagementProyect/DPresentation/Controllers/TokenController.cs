@@ -2,10 +2,13 @@
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
-using WebManagementProyect.BApplication.Dtos;
+using WebManagementProyect.BApplication.Dtos.Request;
+using WebManagementProyect.BApplication.Dtos.Response;
 using WebManagementProyect.BApplication.UseCases.TokenUseCases.ListarToken;
-using WebManagementProyect.BApplication.UseCases.TokenUseCases.RegisterToken;
+using WebManagementProyect.BApplication.UseCases.TokenUseCases.CrearToken;
 using WebManagementProyect.EShared.Share;
+using WebManagementProyect.BApplication.UseCases.TokenUseCases.ValidarToken;
+using Microsoft.IdentityModel.Tokens;
 
 namespace WebManagementProyect.DPresentation.Controllers
 {
@@ -13,17 +16,19 @@ namespace WebManagementProyect.DPresentation.Controllers
     [ApiController]
     public class TokenController : ControllerBase
     {
-        private readonly RegisterTokenHandler _handlerRegistrar;
+        private readonly RegistrarTokenHandler _handlerRegistrar;
         private readonly ListarTokenHandler _handlerListar;
+        private readonly ValidarTokenHandler _handlerValidar;
 
-        public TokenController(RegisterTokenHandler handlerRegistrar, ListarTokenHandler handlerListar)
+        public TokenController(RegistrarTokenHandler handlerRegistrar, ListarTokenHandler handlerListar,ValidarTokenHandler validarTokenHandler)
         {
             _handlerRegistrar = handlerRegistrar;
             _handlerListar = handlerListar;
+            _handlerValidar = validarTokenHandler;
         }
 
         [HttpPost("Registrar")]
-        public async Task<Results<Created<BaseResponseDto>,BadRequest<BaseResponseDto>,BadRequest<string>>> RegistrarTokenAsync([FromBody] RegistrarTokenDtoRequest register)
+        public async Task<Results<Created<BaseResponseDto>,BadRequest<BaseResponseDto>>> RegistrarTokenAsync([FromBody] RegistrarTokenDtoRequest register)
         {
             var response = new BaseResponseDto();
             if (!ModelState.IsValid)
@@ -33,13 +38,10 @@ namespace WebManagementProyect.DPresentation.Controllers
 
                 return TypedResults.BadRequest(response); // devuelve errores de validación automáticamente
             }
-            var aliasByte = Convert.FromBase64String(register.Alias);
-            var aliasDecode = System.Text.Encoding.UTF8.GetString(aliasByte);
-            var tokenByte = Convert.FromBase64String(register.Token);
-            using var sha256 = System.Security.Cryptography.SHA256.Create();
-            var tokenHash = sha256.ComputeHash(tokenByte);
-            var tokenHashString = BitConverter.ToString(tokenHash).Replace("-", "").ToUpper();
-            var registerCommand = new RegisterTokenCommand
+
+            var aliasDecode = ConstantesFunciones.Base64Decode(register.Alias);
+            var tokenHashString = ConstantesFunciones.Sha256Hash(register.Token);
+            var registerCommand = new RegistrarTokenCommand
             {
                 Alias = aliasDecode,
                 Token = tokenHashString
@@ -59,15 +61,46 @@ namespace WebManagementProyect.DPresentation.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<Results<Ok<List<ListarTokenCommand>>,NotFound>> ListarTokenAsync()
+        ////[HttpGet]
+        ////public async Task<Results<Ok<List<ListarTokenCommand>>,NotFound>> ListarTokenAsync()
+        ////{
+        ////    var resultado = await _handlerListar.Handle();
+        ////    if (resultado == null || !resultado.Any())
+        ////    {
+        ////        return TypedResults.NotFound();
+        ////    }
+        ////    return TypedResults.Ok(resultado);
+        ////}
+
+
+        [HttpPost("Validar")]
+        public async Task<Results<Ok<BaseResponseDto>, BadRequest<BaseResponseDto>>> ValidarTokenAsync([FromBody] ValidarTokenDtoResponse request)
         {
-            var resultado = await _handlerListar.Handle();
-            if (resultado == null || !resultado.Any())
+            var response = new BaseResponseDto();
+            if (!ModelState.IsValid)
             {
-                return TypedResults.NotFound();
+                var modalStateListaError = ConstantesFunciones.ObtenerModalStateError(ModelState);
+                response.Message = string.Join("&", modalStateListaError);
+
+                return TypedResults.BadRequest(response); // devuelve errores de validación automáticamente
             }
-            return TypedResults.Ok(resultado);
+            var tokenHashString = ConstantesFunciones.Sha256Hash(request.Token);
+            var validarTokenCommand = new ValidarTokenCommand
+            {
+                Token = tokenHashString
+            };
+            var resultado = await _handlerValidar.Handle(validarTokenCommand);
+            if (resultado.IsNullOrEmpty())
+            {
+                response.Message = "No existe el usuario";
+                return TypedResults.BadRequest(response); // devuelve 204 No Content si no se pudo registrar el token
+            }
+            response = new BaseResponseDto
+            {
+                Message = resultado,
+                Success = true
+            };
+            return TypedResults.Ok(response);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace WebManagementProyect.BApplication.UseCases.TokenUseCases.RegisterToken;
+namespace WebManagementProyect.BApplication.UseCases.TokenUseCases.CrearToken;
 
-public class RegisterTokenCommand
+public class RegistrarTokenCommand
 {
     [Required]
     [MaxLength(256)]

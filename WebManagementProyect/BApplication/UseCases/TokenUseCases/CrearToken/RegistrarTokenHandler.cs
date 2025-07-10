@@ -1,18 +1,18 @@
 ﻿using WebManagementProyect.ADomain.InterfacesRepository;
 using WebManagementProyect.CInfrastructure.Persistence.AppDbContext;
 
-namespace WebManagementProyect.BApplication.UseCases.TokenUseCases.RegisterToken;
+namespace WebManagementProyect.BApplication.UseCases.TokenUseCases.CrearToken;
 
-public class RegisterTokenHandler
+public class RegistrarTokenHandler
 {
     private readonly ITokenRepository _tokenRepository;
     private readonly IUsuarioRepository _usuarioRepository;
-    public RegisterTokenHandler(ITokenRepository tokenRepository, IUsuarioRepository usuarioRepository)
+    public RegistrarTokenHandler(ITokenRepository tokenRepository, IUsuarioRepository usuarioRepository)
     {
         _tokenRepository = tokenRepository;
         _usuarioRepository= usuarioRepository;
     }
-    public async Task<bool> Handle(RegisterTokenCommand command)
+    public async Task<bool> Handle(RegistrarTokenCommand command)
     {
         var existe = await _tokenRepository.ValidarTokenHashAsync(command.Token);
         if (existe)

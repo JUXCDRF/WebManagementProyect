@@ -14,9 +14,9 @@ public partial class TokenAccesoProyecto: EntidadBase
 
     public string TipoToken { get; set; }
 
-    public Guid IdCreador { get; set; }
+    public Guid? IdCreador { get; set; }=null;
 
-    public Guid IdColaborador { get; set; }
+    public Guid? IdColaborador { get; set; }=null;
 
     public bool Lectura { get; set; }
 

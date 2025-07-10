@@ -55,12 +55,20 @@ public class BaseRepository<T> : IBaseRepository<T> where T : EntidadBase
 
     public async Task<bool> SaveAsync()
     {
-        var result = await _context.SaveChangesAsync();
-        if (result > 0)
+        try
         {
-            return true;
+            var result = await _context.SaveChangesAsync();
+            if (result > 0)
+            {
+                return true;
+            }
+            return false;
         }
-        return false;
+        catch(Exception ex)
+        {
+            Console.WriteLine($"Error al guardar cambios: {ex.Message}");
+            return false;
+        }
     }
 
 }

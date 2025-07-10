@@ -1,8 +1,9 @@
 <form [formGroup]="frmTokenDatos">
     <div class="container TokenContenedor p-3">
         <div class="d-flex justify-content-between align-items-center">
-            <button class="btn btn-success {{registrar?'ShowBoton':'HideBoton'}}" (click)="funRegistrar()">Registrar</button>
-            <button class="btn btn-primary {{validar?'ShowBoton':'HideBoton'}}" (click)="funValidar()">Validar</button>
+            <button class="btn btn-success {{data.registrar?'ShowBoton':'HideBoton'}}" (click)="funRegistrar()">Registrar</button>
+            <button class="btn btn-primary {{data.validar?'ShowBoton':'HideBoton'}}" (click)="funValidar()">Validar</button>
+            <a type="button" class="btn" (click)="cerrar()"><i class="bi bi-x-circle"></i></a>
         </div>
         <hr/>
         <div class="CenterContenedor">
@@ -14,6 +15,9 @@
                 <label for="">Nombre (Alias) </label>
                 <input type="text" class="form-control" formControlName="alias" placeholder="Ingresar alias del Usuario">
             </div>
+        </div>
+        <div>
+            <a type="button" class=" {{data.validar?'ShowBoton':'HideBoton'}}" (click)="CambiarRegistro()">Registrase</a>
         </div>
     </div>
 </form>

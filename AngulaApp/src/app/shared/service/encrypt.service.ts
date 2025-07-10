@@ -10,12 +10,14 @@ export class EncryptService {
 
   private storageService=inject(SecurestorageService);
    // Crea la clave combinada y cifrada en base64
-  generateSecurePayload(alias: string, token: string): string {
+   generarCombinacion(alias: string,token:string):string{
     const mitad = token.slice(0, Math.floor(token.length / 2));
     const data = alias + mitad;
-
+    return data
+   }
+  generateSecurePayload(token: string): string {
     //const encrypted = CryptoJS.AES.encrypt(data, token).toString();
-    return btoa(data); // codifica en base64 para enviar
+    return btoa(token); // codifica en base64 para enviar
   }
   textoCifrado(texto:string,token: string):string{
     const cadena=texto;
@@ -28,7 +30,7 @@ export class EncryptService {
     if(token==""){
       return "Error";
     }
-    const descifrado=CryptoJS.AES.encrypt(texto,token).toString();
+    const descifrado = CryptoJS.AES.decrypt(texto, token).toString(CryptoJS.enc.Utf8);
     return descifrado;
   }
 }
