@@ -22,20 +22,40 @@ namespace WebManagementProyect.DPresentation.Controllers
             _handlerListar = handlerListar;
         }
 
-        [HttpPost]
-        public async Task<Results<Created,BadRequest<List<ModalStateErrorDtoResponse>>,BadRequest<string>>> RegistrarTokenAsync([FromBody] RegisterTokenCommand register)
+        [HttpPost("Registrar")]
+        public async Task<Results<Created<BaseResponseDto>,BadRequest<BaseResponseDto>,BadRequest<string>>> RegistrarTokenAsync([FromBody] RegistrarTokenDtoRequest register)
         {
+            var response = new BaseResponseDto();
             if (!ModelState.IsValid)
             {
                 var modalStateListaError = ConstantesFunciones.ObtenerModalStateError(ModelState);
-                return TypedResults.BadRequest(modalStateListaError); // devuelve errores de validación automáticamente
+                response.Message = string.Join("&", modalStateListaError);
+
+                return TypedResults.BadRequest(response); // devuelve errores de validación automáticamente
             }
-            var resultado = await _handlerRegistrar.Handle(register);
+            var aliasByte = Convert.FromBase64String(register.Alias);
+            var aliasDecode = System.Text.Encoding.UTF8.GetString(aliasByte);
+            var tokenByte = Convert.FromBase64String(register.Token);
+            using var sha256 = System.Security.Cryptography.SHA256.Create();
+            var tokenHash = sha256.ComputeHash(tokenByte);
+            var tokenHashString = BitConverter.ToString(tokenHash).Replace("-", "").ToUpper();
+            var registerCommand = new RegisterTokenCommand
+            {
+                Alias = aliasDecode,
+                Token = tokenHashString
+            };
+            var resultado = await _handlerRegistrar.Handle(registerCommand);
             if (!resultado)
             {
-                return TypedResults.BadRequest("No se Pudo Registrar"); // devuelve 204 No Content si no se pudo registrar el token
+                response.Message = "No se Pudo Registrar Usuario, token similar";
+                return TypedResults.BadRequest(response); // devuelve 204 No Content si no se pudo registrar el token
             }
-            return TypedResults.Created();
+            response = new BaseResponseDto
+            {
+                Message = "Usuario registrado correctamente",
+                Success = true
+            };
+            return TypedResults.Created("/",response);
         }
 
 

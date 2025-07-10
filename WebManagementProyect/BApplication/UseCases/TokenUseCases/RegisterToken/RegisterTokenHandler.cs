@@ -6,16 +6,28 @@ namespace WebManagementProyect.BApplication.UseCases.TokenUseCases.RegisterToken
 public class RegisterTokenHandler
 {
     private readonly ITokenRepository _tokenRepository;
-    public RegisterTokenHandler(ITokenRepository tokenRepository)
+    private readonly IUsuarioRepository _usuarioRepository;
+    public RegisterTokenHandler(ITokenRepository tokenRepository, IUsuarioRepository usuarioRepository)
     {
         _tokenRepository = tokenRepository;
+        _usuarioRepository= usuarioRepository;
     }
     public async Task<bool> Handle(RegisterTokenCommand command)
     {
-        var token = new Token
+        var existe = await _tokenRepository.ValidarTokenHashAsync(command.Token);
+        if (existe)
         {
-            TokenHash = command.Token
+            return false;
+        }
+        var usuario = new UsuariosAnonimo
+        {
+            FechaCreacion = DateTime.Now,
+            Usuario = command.Alias,
+            IdTokenNavigation = new Token
+            {
+                TokenHash = command.Token,
+            },
         };
-       return await _tokenRepository.AddAsync(token);
+       return await _usuarioRepository.AddAsync(usuario);
     }
 }

@@ -1,0 +1,14 @@
+
+.ContenedorPrincipal{
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: 1fr;
+}
+.SideBarContenedor{
+    height: 100vh;
+}
+.BodyContenedor{
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: .9fr .1fr;
+}

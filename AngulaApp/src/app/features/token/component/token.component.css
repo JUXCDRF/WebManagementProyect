@@ -1,0 +1,23 @@
+.TokenContenedor{
+    border: 1px solid white;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px 3px lightgray;
+}
+.CenterContenedor{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+} 
+.divContenedor{
+    display: grid;
+    grid-template-columns: 150px 1fr;
+}
+.ShowBoton{
+    display: flex;
+}
+.HideBoton{
+    display: none;
+}
+button{
+    display: none;
+}

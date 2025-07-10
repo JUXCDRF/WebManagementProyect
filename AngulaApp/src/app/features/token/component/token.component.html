@@ -1,0 +1,19 @@
+<form [formGroup]="frmTokenDatos">
+    <div class="container TokenContenedor p-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <button class="btn btn-success {{registrar?'ShowBoton':'HideBoton'}}" (click)="funRegistrar()">Registrar</button>
+            <button class="btn btn-primary {{validar?'ShowBoton':'HideBoton'}}" (click)="funValidar()">Validar</button>
+        </div>
+        <hr/>
+        <div class="CenterContenedor">
+            <div class="divContenedor">
+                <label for="">Clave Personal</label>
+                <input type="text" class="form-control" formControlName="token" placeholder="Ingresar Clave Personal">
+            </div>
+            <div class="divContenedor">
+                <label for="">Nombre (Alias) </label>
+                <input type="text" class="form-control" formControlName="alias" placeholder="Ingresar alias del Usuario">
+            </div>
+        </div>
+    </div>
+</form>

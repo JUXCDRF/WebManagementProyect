@@ -39,7 +39,7 @@ namespace WebManagementProyect.CInfrastructure.Persistence.AppDbContext.Configur
                 .HasMaxLength(50)
                 .IsUnicode(false);
 
-
+            entity.HasIndex(e => e.TokenHash).IsUnique();
             OnConfigurePartial(entity);
         }
 

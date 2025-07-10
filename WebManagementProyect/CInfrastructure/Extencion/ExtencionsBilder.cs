@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using WebManagementProyect.ADomain.InterfacesRepository;
+using WebManagementProyect.BApplication.UseCases.ProyectoUseCases.ListaProyecto;
 using WebManagementProyect.BApplication.UseCases.TokenUseCases.ListarToken;
 using WebManagementProyect.BApplication.UseCases.TokenUseCases.RegisterToken;
 using WebManagementProyect.CInfrastructure.Persistence.AppDbContext;
@@ -18,6 +19,9 @@ public static class ExtencionsBilder
         services.AddScoped<RegisterTokenHandler>();
         services.AddScoped<ListarTokenHandler>();
         services.AddScoped<ITokenRepository, TokenRepository>();
+        services.AddScoped<ListarProyectoHandler>();
+        services.AddScoped<IProyectoRepository, ProyectoRepository>();
+        services.AddScoped<IUsuarioRepository, UsuarioRepository>();
         return services;
     }
 }

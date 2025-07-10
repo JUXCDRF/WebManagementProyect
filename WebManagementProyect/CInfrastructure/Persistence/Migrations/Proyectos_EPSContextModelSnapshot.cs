@@ -152,6 +152,9 @@ namespace WebManagementProyect.Cinfrastructure.Persistence.Migrations
                     b.HasKey("Id")
                         .HasName("PK__Token__3214EC07AAB7B48D");
 
+                    b.HasIndex("TokenHash")
+                        .IsUnique();
+
                     b.ToTable("Token", (string)null);
                 });
 
@@ -250,6 +253,12 @@ namespace WebManagementProyect.Cinfrastructure.Persistence.Migrations
                         .HasMaxLength(50)
                         .IsUnicode(false)
                         .HasColumnType("varchar(50)");
+
+                    b.Property<string>("Usuario")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .IsUnicode(false)
+                        .HasColumnType("varchar(100)");
 
                     b.HasKey("Id")
                         .HasName("PK__Usuarios__3214EC07FC2D0871");

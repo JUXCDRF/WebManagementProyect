@@ -1,0 +1,21 @@
+<div class="proyectoContenedor">
+    <div class="sideContenedor">
+        <a [routerLink]="['proyecto/registrar']" routerLinkActive="router-link-active" >registrar</a>
+        <div class="input-group mb-3">
+            <span class="input-group-text">Filtro</span>
+            <input type="search"  class="form-control" placeholder="Buscar por Proyecto" (change)="funfilter()"/>
+        </div>
+        <div class="listadoProyecto">
+            <ul>
+                @for (proyecto of proyectoList; track $index) {
+                    <li>
+                        <a>{{proyecto.nombre}}</a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="bodyContenedor">
+        <router-outlet/>
+    </div>
+</div>

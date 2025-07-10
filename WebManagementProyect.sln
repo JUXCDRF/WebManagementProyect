@@ -5,6 +5,8 @@ VisualStudioVersion = 17.14.36109.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebManagementProyect", "WebManagementProyect\WebManagementProyect.csproj", "{BC762393-8CCE-4ED3-A084-412C87264220}"
 EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "AngulaApp", "AngulaApp\AngulaApp.esproj", "{1ED0227A-AF45-67AF-CE51-F5A872ED2C76}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,12 @@ Global
 		{BC762393-8CCE-4ED3-A084-412C87264220}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BC762393-8CCE-4ED3-A084-412C87264220}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BC762393-8CCE-4ED3-A084-412C87264220}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ED0227A-AF45-67AF-CE51-F5A872ED2C76}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1ED0227A-AF45-67AF-CE51-F5A872ED2C76}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1ED0227A-AF45-67AF-CE51-F5A872ED2C76}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{1ED0227A-AF45-67AF-CE51-F5A872ED2C76}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1ED0227A-AF45-67AF-CE51-F5A872ED2C76}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1ED0227A-AF45-67AF-CE51-F5A872ED2C76}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

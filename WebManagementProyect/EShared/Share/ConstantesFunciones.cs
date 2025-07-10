@@ -5,9 +5,9 @@ namespace WebManagementProyect.EShared.Share;
 
 public static class ConstantesFunciones
 {
-    public static List<ModalStateErrorDtoResponse> ObtenerModalStateError(ModelStateDictionary ModelState)
+    public static List<string> ObtenerModalStateError(ModelStateDictionary ModelState)
     {
-        var modalStateListaError = ModelState.Where(x => x.Value.Errors.Count > 0).SelectMany(x => x.Value.Errors.Select(e => new ModalStateErrorDtoResponse { Campo = x.Key, Message = e.ErrorMessage })).ToList();
+        var modalStateListaError = ModelState.Where(x => x.Value.Errors.Count > 0).SelectMany(x => x.Value.Errors.Select(e => $"{x.Key}:{e.ErrorMessage}")).ToList();
         return  modalStateListaError;
     }
 }

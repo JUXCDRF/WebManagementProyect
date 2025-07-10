@@ -12,6 +12,8 @@ public partial class UsuariosAnonimo: EntidadBase
 
     public bool Deshabilitado { get; set; }
 
+    public string Usuario { get; set; }
+
     public DateTime? FechaDeshabilitado { get; set; }
 
     public string MotivoDeshabilitado { get; set; }

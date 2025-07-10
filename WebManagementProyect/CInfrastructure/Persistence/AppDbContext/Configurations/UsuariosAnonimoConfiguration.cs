@@ -16,6 +16,10 @@ namespace WebManagementProyect.CInfrastructure.Persistence.AppDbContext.Configur
             entity.ToTable("UsuariosAnonimo");
 
             entity.Property(e => e.Id).HasDefaultValueSql("(newid())");
+            entity.Property(e => e.Usuario)
+                .IsRequired()
+                .HasMaxLength(100)
+                .IsUnicode(false);
             entity.Property(e => e.Deshabilitado)
                 .IsRequired();
             entity.Property(e => e.FechaDeshabilitado)

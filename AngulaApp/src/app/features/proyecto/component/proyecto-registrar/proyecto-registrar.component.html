@@ -1,0 +1,25 @@
+<form [formGroup]="frmProyectoDatos">
+    <div class="container TokenContenedor p-3">
+        <div class="d-flex justify-content-between align-items-center">
+            <button class="btn btn-success" (click)="funRegistrar()">Crear Proyecto</button>
+        </div>
+        <hr/>
+        <div class="CenterContenedor">
+            <div class="divContenedor">
+                <label for="">Nombre Proyecto</label>
+                <input type="text" class="form-control" formControlName="nombre" placeholder="Ingresar nombre">
+            </div>
+            <div class="divContenedor">
+                <label for="">Fecha Inicio del Proyecto</label>
+                <input type="date" class="form-control" formControlName="fechinicio" >
+            </div>
+            <div class="divContenedor">
+                <label for="">Permiso</label>
+                <select class="form-select" formControlName="permisos">
+                    <option value="1" selected>Editar</option>
+                    <option value="2">Lectura</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</form>
