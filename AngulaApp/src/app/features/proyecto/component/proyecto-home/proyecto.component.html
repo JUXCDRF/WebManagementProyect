@@ -1,15 +1,31 @@
 <div class="proyectoContenedor">
     <div class="sideContenedor">
-        <a [routerLink]="['proyecto/registrar']" routerLinkActive="router-link-active" >registrar</a>
-        <div class="input-group mb-3">
-            <span class="input-group-text">Filtro</span>
-            <input type="search"  class="form-control" placeholder="Buscar por Proyecto" (change)="funfilter()"/>
+        <div class="input-group p-3 pb-1 ContenedorSearch">
+            <span class="input-group-text">
+                <i class="bi bi-pencil-square"></i>
+            </span>
+            <a  id="btnRegistrar"
+                [routerLink]="['registrar']" 
+                class="form-control" 
+                routerLinkActive="router-link-active" >Registrar</a>
+            <span class="input-group-text">
+                <i class="bi bi-chevron-right"></i>
+            </span>
+        </div>
+        <div class="input-group p-3 pb-1">
+            <span class="input-group-text">
+                <i class="bi bi-filter-square"></i>
+            </span>
+            <input type="search"  class="form-control" [(ngModel)]="filtro" placeholder="Buscar por Proyecto" (input)="funfilter()"/>
+            <span class="input-group-text">
+                <i class="bi bi-search"></i>
+            </span>
         </div>
         <div class="listadoProyecto">
             <ul>
                 @for (proyecto of proyectoList; track $index) {
                     <li>
-                        <a>{{proyecto.nombre}}</a>
+                        <a [routerLink]="['tarea',proyecto.id]">{{proyecto.nombre}}</a>
                     </li>
                 }
             </ul>

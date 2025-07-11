@@ -11,15 +11,27 @@ namespace WebManagementProyect.CInfrastructure.Repositories
         {
         }
 
-        public Task<List<ListarProyectoCommand>> GetNameProyectosByTokenAsync(Guid Idtoken, Guid Idproyecto)
+        public Task<List<ListarProyectoCommand>> GetNameProyectosByTokenAsync(Guid Idtoken)
         {
-          return  _context.Set<TokenAccesoProyecto>().Where(s => s.Id == Idtoken && s.IdProyecto == Idproyecto && s.Eliminado == false).Include(d=>d.IdProyectoNavigation)
+          return  _context.Set<TokenAccesoProyecto>().Where(s => s.IdToken == Idtoken && s.Eliminado == false).Include(d=>d.IdProyectoNavigation)
                 .Select(s => new ListarProyectoCommand
                 {
                     Id = s.IdProyectoNavigation.Id.ToString(),
                     nombre = s.IdProyectoNavigation.NombreProyecto,
                     fecha= $"{s.IdProyectoNavigation.FechaCreacion:dd/MM/yyyy}", // ISO 8601 format
                 }).ToListAsync();
+        }
+
+        public Task<List<ListarProyectoCommand>> GetNameProyectosByTokenAsync(Guid Idtoken,string filtro)
+        {
+            return _context.Set<TokenAccesoProyecto>().Where(s => s.IdToken == Idtoken && s.Eliminado == false).Include(d => d.IdProyectoNavigation)
+                .Where(f=>f.IdProyectoNavigation.NombreProyecto.Contains(filtro))
+                  .Select(s => new ListarProyectoCommand
+                  {
+                      Id = s.IdProyectoNavigation.Id.ToString(),
+                      nombre = s.IdProyectoNavigation.NombreProyecto,
+                      fecha = $"{s.IdProyectoNavigation.FechaCreacion:dd/MM/yyyy}", // ISO 8601 format
+                  }).ToListAsync();
         }
     }
 }

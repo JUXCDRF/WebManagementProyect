@@ -14,7 +14,10 @@ public partial class Tarea : EntidadBase
 
     public string Descripcion { get; set; }
 
-    public bool Estado { get; set; }
+    public TimeOnly HoraInicio { get; set; }
+    public TimeOnly HoraFin { get; set; }
+    public DateTime FechaTarea { get; set; }
+    public int Estado { get; set; }
 
     public string DescEstado { get; set; }
 

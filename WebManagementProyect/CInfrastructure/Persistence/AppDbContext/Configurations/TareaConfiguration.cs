@@ -27,6 +27,15 @@ namespace WebManagementProyect.CInfrastructure.Persistence.AppDbContext.Configur
                 .IsRequired()
                 .HasMaxLength(100)
                 .IsUnicode(false);
+            entity.Property(e => e.FechaTarea)
+                .IsRequired()
+                .HasColumnType("datetime");
+            entity.Property(e => e.HoraInicio)
+                .IsRequired()
+                .HasColumnType("time");
+            entity.Property(e => e.HoraFin)
+                .IsRequired()
+                .HasColumnType("time");
             entity.Property(e => e.FechaLimite)
                 .HasColumnType("datetime");
 

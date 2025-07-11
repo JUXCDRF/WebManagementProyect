@@ -5,5 +5,66 @@
     height: 100%;
 }
 .sideContenedor{
-    background-color: red;
+    background-color: rgba(233, 236, 239, 1);
+}
+.sideContenedor .listadoProyecto{
+    height: auto;
+    overflow: hidden;
+
+}
+.sideContenedor .listadoProyecto ul{
+    list-style: none;
+    padding: 0;    
+    margin: 10px;
+}
+.sideContenedor .listadoProyecto ul li {
+    width: auto;
+    height: 40px;
+}
+.sideContenedor .listadoProyecto ul li a{
+    all: unset; 
+    width: auto;
+    height: 40px;
+    padding-left:10px ;
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    cursor: pointer;
+    
+    border-top: 1px solid lightgray;
+    background-color: white;
+}
+.sideContenedor .listadoProyecto ul li:first-child a{
+    border-top: none;
+    border-radius: 5px 5px 0px 0px;
+}
+.sideContenedor .listadoProyecto ul li:last-child a{
+    border-radius: 0px 0px 5px 5px;
+}
+.sideContenedor .listadoProyecto ul li a:hover{
+    color: white;
+    background: rgba(15, 72, 169, 1);
+}
+/* input searchar*/
+input[type=search]::placeholder{
+    font-size: 14px;
+    opacity: 0.6;
+}
+.input-group-text{
+    padding: 3px;
+    pointer-events: none;
+}
+.bi-filter-square {
+    color: gray;
+}
+.ContenedorSearch span,.ContenedorSearch a {
+    border-color:  rgba(15, 72, 169, 1);
+    background-color: rgba(15, 72, 169, 1);
+}
+.ContenedorSearch span i{
+    color: white;
+}
+#btnRegistrar{    
+    color: white;
+    text-decoration: none;
 }

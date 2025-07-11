@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { ItokenRequest } from '../interface/itoken-request';
 import { Observable } from 'rxjs';
 import { Baseresponse } from '../../interface/baseresponse';
+import { IonlytokenRequest } from '../interface/ionlytoken-request';
 
 @Injectable({
   providedIn: 'root'
@@ -16,8 +17,8 @@ export class TokenService {
   saveToken(ItokenRequest:ItokenRequest):Observable<Baseresponse>{
     return this.httpclient.post<Baseresponse>(this.urlTokenRegister,ItokenRequest);
   }
-  signToken(ItokenRequest:ItokenRequest):Observable<Baseresponse>{
-    return this.httpclient.post<Baseresponse>(this.urlTokenSign,ItokenRequest);
+  signToken(IOnlytokenRequest:IonlytokenRequest):Observable<Baseresponse>{
+    return this.httpclient.post<Baseresponse>(this.urlTokenSign,IOnlytokenRequest);
   }
 
 }

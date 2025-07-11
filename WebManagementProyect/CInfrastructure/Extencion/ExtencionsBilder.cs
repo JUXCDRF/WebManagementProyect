@@ -7,6 +7,7 @@ using WebManagementProyect.CInfrastructure.Persistence.AppDbContext;
 using WebManagementProyect.CInfrastructure.Repositories;
 using WebManagementProyect.BApplication.UseCases.ProyectoUseCases.CrearProyecto;
 using WebManagementProyect.BApplication.UseCases.TokenUseCases.ValidarToken;
+using WebManagementProyect.BApplication.UseCases.TareaUseCases.ListarTarea;
 
 namespace WebManagementProyect.CInfrastructure.Extencion;
 
@@ -24,9 +25,11 @@ public static class ExtencionsBilder
         services.AddScoped<IProyectoRepository, ProyectoRepository>();
         services.AddScoped<IUsuarioRepository, UsuarioRepository>();
         services.AddScoped<IAccesoProyectoRepository, AccesoProyectoRepository>();
+        services.AddScoped<ITareaRepository, TareaRepository>();
         services.AddScoped<ListarProyectoHandler>();
         services.AddScoped<RegistrarProyectoHandler>();
         services.AddScoped<ValidarTokenHandler>();
+        services.AddScoped<ListarTareaHandler>();
         return services;
     }
 }

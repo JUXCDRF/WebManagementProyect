@@ -7,6 +7,7 @@ import { EncryptService } from '../../service/encrypt.service';
 import { TokenService } from '../service/token.service';
 import { SecurestorageService } from '../../service/securestorage.service';
 import { ItokenRequest } from '../interface/itoken-request';
+import { IonlytokenRequest } from '../interface/ionlytoken-request';
 
 @Component({
   selector: 'app-login-register',
@@ -38,8 +39,8 @@ export class LoginRegisterComponent {
     const alias=this.frmTokenDatos.get("alias")?.value||"";
 
     const tokenEnviar=this.encryptSevice.generarCombinacion(alias,token);
-    const paylodEnviar= this.encryptSevice.generateSecurePayload(tokenEnviar);
-    const aliasEnviar=this.encryptSevice.textoCifrado(alias,tokenEnviar);
+    const paylodEnviar= this.encryptSevice.generateSecurePayload(tokenEnviar);//BASE64
+    const aliasEnviar=this.encryptSevice.textoCifrado(alias,tokenEnviar);//TOKEN NORMAL
 
     const ItokenRequest:ItokenRequest={
       token:paylodEnviar,
@@ -50,10 +51,11 @@ export class LoginRegisterComponent {
       next:(res)=>{
         if(!res.success){
           alert(res.message);
-          return;
+          this.dialogRef.close(false);
         }
         this.storageService.save(key,paylodEnviar);
         alert(res.message);
+        this.dialogRef.close(true);
       },
       error:(error)=>{
         const mensaje = error.error?.message || 'Ocurrió un error inesperado';
@@ -70,22 +72,21 @@ export class LoginRegisterComponent {
 
     const tokenEnviar=this.encryptSevice.generarCombinacion(alias,token);
     const paylodEnviar= this.encryptSevice.generateSecurePayload(tokenEnviar);
-    const aliasEnviar=this.encryptSevice.textoCifrado(alias,tokenEnviar);
 
-    const ItokenRequest:ItokenRequest={
+    const IOnlytokenRequest:IonlytokenRequest={
       token:paylodEnviar,
-      alias:aliasEnviar
     }
 
-     this.tokenService.signToken(ItokenRequest).subscribe({
+     this.tokenService.signToken(IOnlytokenRequest).subscribe({
       next:(res)=>{
         if(!res.success){
           alert(res.message);
-          return;
+          this.dialogRef.close(false);
         }
         this.storageService.save(key,paylodEnviar);
         const aliasRespuesta=this.encryptSevice.textoDecifrado(res.message);
         alert(`Bienvenido: ${aliasRespuesta}`);
+        this.dialogRef.close(true);
       },
       error:(error)=>{
         const mensaje = error.error?.message || 'Ocurrió un error inesperado';

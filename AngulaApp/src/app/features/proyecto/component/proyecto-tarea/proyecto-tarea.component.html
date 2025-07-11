@@ -1,0 +1,19 @@
+<div class="Contenedor">
+    <div><h1>Proyecto {{proyectoTarea.tituloprincipal}}</h1></div>
+    <div>
+        <a class="form-control" (click)="CrearTarea()" ><i class="bi bi-plus-circle-fill"></i> Añadir Tarea</a>
+    </div>
+    @for (tarea of proyectoTarea.tareas; track $index) {
+    <div>
+        <div class="card">
+            <div class="btn-close"></div>
+            <div class="card-time">{{tarea.horainicio}} {{tarea.horafin}}</div>
+            <div class="card-tittle">{{tarea.titulo}}</div>
+            <div class="card-desc">{{tarea.descripcion}}</div>
+        </div>
+    </div>
+    }
+    <div>
+        
+    </div>
+</div>

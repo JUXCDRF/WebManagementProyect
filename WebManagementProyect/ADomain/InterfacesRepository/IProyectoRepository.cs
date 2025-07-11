@@ -5,5 +5,6 @@ namespace WebManagementProyect.ADomain.InterfacesRepository;
 
 public interface IProyectoRepository:IBaseRepository<Proyecto>
 {
-    Task<List<ListarProyectoCommand>> GetNameProyectosByTokenAsync(Guid Idtoken, Guid Idproyecto);
+    Task<List<ListarProyectoCommand>> GetNameProyectosByTokenAsync(Guid Idtoken);
+    Task<List<ListarProyectoCommand>> GetNameProyectosByTokenAsync(Guid Idtoken, string filtro);
 }

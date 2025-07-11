@@ -7,17 +7,20 @@ import { EncryptService } from '../../../../shared/service/encrypt.service';
 import { ProyectoService } from '../../service/proyecto.service';
 import { MatDialog } from '@angular/material/dialog';
 import { LoginRegisterComponent } from '../../../../shared/popup/login-register/login-register.component';
+import { ProyectoCreadoEventService } from '../../service/proyecto-creado-event.service';
 
 @Component({
   selector: 'app-proyecto-registrar',
   imports: [
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   templateUrl: './proyecto-registrar.component.html',
   styleUrl: './proyecto-registrar.component.css'
 })
 export class ProyectoRegistrarComponent {
-  constructor(private dialog: MatDialog) {}
+  constructor(
+    private dialog: MatDialog,
+    private proyectoEvent:ProyectoCreadoEventService) {}
 
   registrando=false;
 
@@ -38,7 +41,8 @@ export class ProyectoRegistrarComponent {
           titulo: 'Token requerido',
           validar:true,
           registrar:false
-        }
+        },
+        disableClose: true
       });
   }
 
@@ -71,6 +75,7 @@ export class ProyectoRegistrarComponent {
           return;
         }
         alert(res.message);
+        this.proyectoEvent.NotificarProyectoCreado()
       },
       error:(error)=>{
         const mensaje = error.error?.message || 'Ocurrió un error inesperado';

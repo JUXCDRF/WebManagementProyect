@@ -1,11 +1,15 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Azure;
+using Azure.Core;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.Win32;
 using WebManagementProyect.BApplication.Dtos.Request;
 using WebManagementProyect.BApplication.Dtos.Response;
 using WebManagementProyect.BApplication.UseCases.ProyectoUseCases.CrearProyecto;
 using WebManagementProyect.BApplication.UseCases.ProyectoUseCases.ListaProyecto;
+using WebManagementProyect.BApplication.UseCases.TareaUseCases.ListarTarea;
 using WebManagementProyect.BApplication.UseCases.TokenUseCases.CrearToken;
 using WebManagementProyect.BApplication.UseCases.TokenUseCases.ListarToken;
 using WebManagementProyect.EShared.Share;
@@ -18,18 +22,41 @@ public class ProyectoController : ControllerBase
 {
     private readonly ListarProyectoHandler _handlerListar;
     private readonly RegistrarProyectoHandler _handlerRegistrar;
+    private readonly ListarTareaHandler _handlerListarTarea;
 
-    public ProyectoController(ListarProyectoHandler handlerListar, RegistrarProyectoHandler handlerRegistrar)
+    public ProyectoController(ListarProyectoHandler handlerListar, RegistrarProyectoHandler handlerRegistrar, ListarTareaHandler listarTareaHandler)
     {
         _handlerListar = handlerListar;
         _handlerRegistrar = handlerRegistrar;
+        _handlerListarTarea = listarTareaHandler;
     }
 
-    [HttpGet("Listar")]
-    public async Task<Results<Ok<List<ListarProyectoCommand>>, NotFound>> ListarProyectoAsync()
+    [HttpPost("Listar")]
+    public async Task<Results<Ok<List<ListarProyectoCommand>>, NotFound>> ListarProyectoAsync([FromBody] ValidarTokenDtoResponse request)
     {
-        //var resultado = await _handlerListar.Handle();
-        return TypedResults.Ok(new List<ListarProyectoCommand>() { new ListarProyectoCommand { Id = "", nombre = "No se encontro Proyectos", fecha = $"{DateTime.Now:dd/MM/yyyy}" } });
+        if (!ModelState.IsValid)
+        {
+            return TypedResults.Ok(new List<ListarProyectoCommand>() { new ListarProyectoCommand { Id = "", nombre = "No se encontro Proyectos", fecha = $"{DateTime.Now:dd/MM/yyyy}" } });// devuelve errores de validación automáticamente
+        }
+
+        var tokenHashString = ConstantesFunciones.Sha256Hash(request.Token);
+        var resultado = await _handlerListar.Handle(tokenHashString,"");
+        return TypedResults.Ok(resultado);
+        //return TypedResults.Ok(resultado);
+    }
+
+    [HttpPost("Filtrar")]
+    public async Task<Results<Ok<List<ListarProyectoCommand>>, NotFound>> ListarProyectoFiltroAsync([FromBody] ValidarFiltroDtoRequest request)
+    {
+        if (!ModelState.IsValid)
+        {
+            return TypedResults.Ok(new List<ListarProyectoCommand>() { new ListarProyectoCommand { Id = "", nombre = "No se encontro Proyectos", fecha = $"{DateTime.Now:dd/MM/yyyy}" } });// devuelve errores de validación automáticamente
+        }
+
+        var tokenHashString = ConstantesFunciones.Sha256Hash(request.token);
+        var filtroDecode = ConstantesFunciones.Base64Decode(request.filtro);
+        var resultado = await _handlerListar.Handle(tokenHashString, filtroDecode);
+        return TypedResults.Ok(resultado);
         //return TypedResults.Ok(resultado);
     }
 
@@ -66,5 +93,27 @@ public class ProyectoController : ControllerBase
             Success = true
         };
         return TypedResults.Created("/", response);
+    }
+
+
+    [HttpGet("Tarea/{id:guid}")]
+    public async Task<Results<Ok<ProyectoPrincipalDtoResponse>,BadRequest>> ListarTarea(TareaListarDtoRequest request) 
+    {
+        if (!ModelState.IsValid)
+        {
+            var response = new ProyectoPrincipalDtoResponse();
+            response.tituloprincipal = "No token Validdo";
+            response.tareas = new List<ListarTareaDtoResponse>() { new ListarTareaDtoResponse { Id = "", titulo = "No hay Token", fecha = $"{DateTime.Now:dd/MM/yyyy}" } };
+
+            return TypedResults.Ok(response); // devuelve errores de validación automáticamente
+        }
+        var tokenHashString = ConstantesFunciones.Sha256Hash(request.token);
+        var listarTareaCommand = new ListarTareaCommand
+        {
+            id = request.id,
+            token = tokenHashString
+        };
+        var resultado = await _handlerListarTarea.Handle(listarTareaCommand);
+        return TypedResults.Ok(resultado);
     }
 }
