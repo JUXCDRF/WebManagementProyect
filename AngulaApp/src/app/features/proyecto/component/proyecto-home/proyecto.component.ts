@@ -70,7 +70,7 @@ export class ProyectoComponent implements OnInit {
     }
     this.proyectoService.getLista(IonlytokenRequest).subscribe((res)=>{
       res.forEach((e)=>{
-        e.nombre=this.encrypt.textoDecifrado(e.nombre);
+        e.nombre=e.nombre;
       });
       this.proyectoList=res;
     });
@@ -78,19 +78,13 @@ export class ProyectoComponent implements OnInit {
 
   funfilter(){
     const token=this.token;
-    const tokendeco=this.secure.get(this.key);
     const filtro=this.filtro;
-    console.log(filtro)
     if(token==""){return}
     const IfiltroRequest:IfiltroRequest={
       token:token,
-      filtro:this.encrypt.textoCifrado(filtro,tokendeco)
+      filtro:filtro
     }
-    console.log(IfiltroRequest);
     this.proyectoService.getFiltro(IfiltroRequest).subscribe((res)=>{
-      res.forEach((e)=>{
-        e.nombre=this.encrypt.textoDecifrado(e.nombre);
-      });
       this.proyectoList=res;
     });
   }

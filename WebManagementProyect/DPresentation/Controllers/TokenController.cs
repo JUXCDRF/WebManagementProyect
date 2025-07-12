@@ -39,11 +39,11 @@ namespace WebManagementProyect.DPresentation.Controllers
                 return TypedResults.BadRequest(response); // devuelve errores de validación automáticamente
             }
 
-            var aliasDecode = ConstantesFunciones.Base64Decode(register.Alias);
+            //var aliasDecode = ConstantesFunciones.Base64Decode(register.Alias);
             var tokenHashString = ConstantesFunciones.Sha256Hash(register.Token);
             var registerCommand = new RegistrarTokenCommand
             {
-                Alias = aliasDecode,
+                Alias = register.Alias,
                 Token = tokenHashString
             };
             var resultado = await _handlerRegistrar.Handle(registerCommand);

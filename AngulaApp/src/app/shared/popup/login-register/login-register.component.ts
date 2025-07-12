@@ -40,7 +40,7 @@ export class LoginRegisterComponent {
 
     const tokenEnviar=this.encryptSevice.generarCombinacion(alias,token);
     const paylodEnviar= this.encryptSevice.generateSecurePayload(tokenEnviar);//BASE64
-    const aliasEnviar=this.encryptSevice.textoCifrado(alias,tokenEnviar);//TOKEN NORMAL
+    const aliasEnviar=alias;//TOKEN NORMAL
 
     const ItokenRequest:ItokenRequest={
       token:paylodEnviar,
@@ -84,7 +84,7 @@ export class LoginRegisterComponent {
           this.dialogRef.close(false);
         }
         this.storageService.save(key,paylodEnviar);
-        const aliasRespuesta=this.encryptSevice.textoDecifrado(res.message);
+        const aliasRespuesta=res.message;
         alert(`Bienvenido: ${aliasRespuesta}`);
         this.dialogRef.close(true);
       },

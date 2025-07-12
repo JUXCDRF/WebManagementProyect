@@ -63,7 +63,7 @@ export class ProyectoRegistrarComponent {
 
     const registrarRequest:Iproyectorequest={
       token:this.secure.getCode(key),
-      nombre:this.encrypt.textoCifrado(nombre,token),
+      nombre:nombre,
       permiso:permisos,
       fechainicio:fechinicio
     }

@@ -54,8 +54,8 @@ public class ProyectoController : ControllerBase
         }
 
         var tokenHashString = ConstantesFunciones.Sha256Hash(request.token);
-        var filtroDecode = ConstantesFunciones.Base64Decode(request.filtro);
-        var resultado = await _handlerListar.Handle(tokenHashString, filtroDecode);
+        //var filtroDecode = ConstantesFunciones.Base64Decode(request.filtro);
+        var resultado = await _handlerListar.Handle(tokenHashString, request.filtro);
         return TypedResults.Ok(resultado);
         //return TypedResults.Ok(resultado);
     }
@@ -71,12 +71,12 @@ public class ProyectoController : ControllerBase
 
             return TypedResults.BadRequest(response); // devuelve errores de validación automáticamente
         }
-        var nombreDecode = ConstantesFunciones.Base64Decode(request.nombre);
+        //var nombreDecode = ConstantesFunciones.Base64Decode(request.nombre);
         var tokenHashString = ConstantesFunciones.Sha256Hash(request.token);
         var registerCommand = new RegistrarProyectoCommand
         {
             Token = tokenHashString,
-            Nombre = nombreDecode,
+            Nombre = request.nombre,
             TipoToken = request.tipotoken,
             Permiso = request.permiso,
             FechaInicio = request.fechainicio
