@@ -8,6 +8,8 @@ import { TokenService } from '../service/token.service';
 import { SecurestorageService } from '../../service/securestorage.service';
 import { ItokenRequest } from '../interface/itoken-request';
 import { IonlytokenRequest } from '../interface/ionlytoken-request';
+import { IpopupResponse } from '../interface/ipopup-response';
+import { AlertService } from '../../service/alert.service';
 
 @Component({
   selector: 'app-login-register',
@@ -26,7 +28,7 @@ export class LoginRegisterComponent {
   private encryptSevice=inject(EncryptService);
   private tokenService=inject(TokenService);
   private storageService=inject(SecurestorageService);
-  
+  private alertService=inject(AlertService);
   frmTokenDatos=new FormGroup({
     token:new FormControl(),
     alias:new FormControl()
@@ -50,16 +52,21 @@ export class LoginRegisterComponent {
     this.tokenService.saveToken(ItokenRequest).subscribe({
       next:(res)=>{
         if(!res.success){
-          alert(res.message);
+          this.alertService.funAlert(res.message,"error");
           this.dialogRef.close(false);
         }
         this.storageService.save(key,paylodEnviar);
-        alert(res.message);
-        this.dialogRef.close(true);
+        this.alertService.funAlert(res.message,"success");
+
+        const response:IpopupResponse={
+          token:this.storageService.getCode(key),
+          success:true
+        }
+        this.dialogRef.close(response);
       },
       error:(error)=>{
         const mensaje = error.error?.message || 'Ocurrió un error inesperado';
-        alert(mensaje);
+        this.alertService.funAlert(mensaje,"error");
       }
     });
   }
@@ -80,17 +87,21 @@ export class LoginRegisterComponent {
      this.tokenService.signToken(IOnlytokenRequest).subscribe({
       next:(res)=>{
         if(!res.success){
-          alert(res.message);
+          this.alertService.funAlert(res.message,"error");
           this.dialogRef.close(false);
         }
         this.storageService.save(key,paylodEnviar);
         const aliasRespuesta=res.message;
-        alert(`Bienvenido: ${aliasRespuesta}`);
-        this.dialogRef.close(true);
+        const response:IpopupResponse={
+          token:this.storageService.getCode(key),
+          success:true
+        }
+        this.alertService.funAlert(`Bienvenido: ${aliasRespuesta}`,"success");
+        this.dialogRef.close(response);
       },
       error:(error)=>{
         const mensaje = error.error?.message || 'Ocurrió un error inesperado';
-        alert(mensaje);
+        this.alertService.funAlert(mensaje,"error");
       }
     });
 

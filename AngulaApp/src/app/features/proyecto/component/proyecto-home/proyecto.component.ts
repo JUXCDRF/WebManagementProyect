@@ -11,6 +11,7 @@ import { EncryptService } from '../../../../shared/service/encrypt.service';
 import { ProyectoCreadoEventService } from '../../service/proyecto-creado-event.service';
 import { FormsModule } from '@angular/forms';
 import { IfiltroRequest } from '../../modals/ifiltro-request';
+import { IpopupResponse } from '../../../../shared/popup/interface/ipopup-response';
 
 @Component({
   selector: 'app-proyecto',
@@ -29,28 +30,27 @@ export class ProyectoComponent implements OnInit {
   
   proyectoList:IproyectoList[]=[];
   filtro:string="";
-  
   private proyectoService=inject(ProyectoService);
   private secure=inject(SecurestorageService);
   private encrypt=inject(EncryptService);
 
   private key=enviroment.KEYSTORAGE;
   private token=this.secure.getCode(this.key);
-   funModal(){
-       this.dialog.open(LoginRegisterComponent, {
-          width: '500px',
-          data: {
-            titulo: 'Token requerido',
-            validar:true,
-            registrar:false
-          },
-          disableClose: true
-        }).afterClosed().subscribe((res)=>{
-          if(res){
-          this.getListado(this.token);
-          }
-        });
-    }
+  funModal(){
+    this.dialog.open(LoginRegisterComponent, {
+      width: '500px',
+      data: {
+        titulo: 'Token requerido',
+        validar:true,
+        registrar:false
+      },
+      disableClose: true
+    }).afterClosed().subscribe((res:IpopupResponse)=>{
+      if(res.success){
+        this.getListado(res.token);
+      }
+    });
+  }
 
   ngOnInit():void{
     if(this.token==""){

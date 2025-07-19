@@ -95,23 +95,25 @@ public class ProyectoController : ControllerBase
         return TypedResults.Created("/", response);
     }
 
-
-    [HttpGet("Tarea/{id:guid}")]
+    //[HttpGet("{id:guid}/Tarea/Listar")]
+    [HttpGet("{id:guid}/Tarea/Listar")]
     public async Task<Results<Ok<ProyectoPrincipalDtoResponse>,BadRequest>> ListarTarea(TareaListarDtoRequest request) 
     {
         if (!ModelState.IsValid)
         {
             var response = new ProyectoPrincipalDtoResponse();
-            response.tituloprincipal = "No token Validdo";
-            response.tareas = new List<ListarTareaDtoResponse>() { new ListarTareaDtoResponse { Id = "", titulo = "No hay Token", fecha = $"{DateTime.Now:dd/MM/yyyy}" } };
+            response.tituloprincipal = "No token Valido";
+            response.tareas = new List<ListarTareaDtoResponse>() { new ListarTareaDtoResponse { id = "", titulo = "No hay Token", fecha = $"{DateTime.Now:dd/MM/yyyy}" } };
 
             return TypedResults.Ok(response); // devuelve errores de validación automáticamente
         }
         var tokenHashString = ConstantesFunciones.Sha256Hash(request.token);
         var listarTareaCommand = new ListarTareaCommand
         {
-            id = request.id,
-            token = tokenHashString
+            Id = request.id,
+            Token = tokenHashString,
+            PageNumber=request.pagenumber,
+            PageSize=request.pagesize
         };
         var resultado = await _handlerListarTarea.Handle(listarTareaCommand);
         return TypedResults.Ok(resultado);

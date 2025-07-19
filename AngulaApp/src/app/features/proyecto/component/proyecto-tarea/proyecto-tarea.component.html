@@ -1,19 +1,27 @@
 <div class="Contenedor">
-    <div><h1>Proyecto {{proyectoTarea.tituloprincipal}}</h1></div>
-    <div>
-        <a class="form-control" (click)="CrearTarea()" ><i class="bi bi-plus-circle-fill"></i> Añadir Tarea</a>
+    <div class="TituloPrincipal">
+        <h2>Proyecto {{pagination.tituloprincipal}}</h2>
     </div>
-    @for (tarea of proyectoTarea.tareas; track $index) {
-    <div>
-        <div class="card">
-            <div class="btn-close"></div>
-            <div class="card-time">{{tarea.horainicio}} {{tarea.horafin}}</div>
-            <div class="card-tittle">{{tarea.titulo}}</div>
-            <div class="card-desc">{{tarea.descripcion}}</div>
-        </div>
+    <div class="CrearTarea">
+        <a type="butoon" (click)="CrearTarea()" ><i class="bi bi-plus-circle-fill"></i> Añadir Tarea</a>
     </div>
-    }
-    <div>
-        
+    <div class="ContenedorTarea">        
+        @for (tarea of pagination.tareas; track $index) {
+            <app-proyecto-tarea-detalles [tarea]="tarea"></app-proyecto-tarea-detalles>
+        }
+    </div>
+    <div class="Pagination">
+        <button
+            [disabled]="pagination.pagenumber==1"
+            (click)="funIrPagina(paginaActual??1,1)"
+        ><i class="bi bi-chevron-left"></i></button>
+        @for (item of pagination.rangepage; track item) {
+            <button [class.activa]="pagination.pagenumber === item"
+                    (click)="funIrPagina(item,0)">{{item}}</button>
+        }
+        <button
+            [disabled]="pagination.pagenumber==pagination.pagefinal"
+            (click)="funIrPagina(paginaActual??1,2)"
+        ><i class="bi bi-chevron-right"></i></button>
     </div>
 </div>

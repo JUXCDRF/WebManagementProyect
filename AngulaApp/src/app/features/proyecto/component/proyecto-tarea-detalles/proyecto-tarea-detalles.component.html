@@ -1,0 +1,20 @@
+<div class="card" [ngClass]="{  'noencontrado': tarea.estado == 0 ,
+                                'creado': tarea.estado == 1,
+                                'finalizado': tarea.estado == 2}">
+    <div class="card-time-ajuste">        
+        <div class="time"><i class="bi bi-clock"></i>{{tarea.horainicio}} - {{tarea.horafin}}</div>
+        <div class="btn-group dropend">
+            <button type="button" class="btn" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-three-dots-vertical"></i>
+            </button>
+            <ul class="dropdown-menu">
+                <li><button type="button" class="dropdown-item" (click)="funEditar(tarea.id)">Editar</button></li>
+                <li><button type="button" class="dropdown-item" (click)="funFinalizar(tarea.id)">Finalizar</button></li>
+                <li><button type="button" class="dropdown-item" (click)="funEliminar(tarea.id)">Eliminar</button></li>
+            </ul>
+        </div>
+    </div>
+    <div class="card-tittle">{{tarea.titulo}}</div>
+    <div class="card-desc">{{tarea.descripcion}}</div>
+</div>
+

@@ -8,11 +8,10 @@ import { FooterComponent } from "../footer/footer.component";
   imports: [
     RouterOutlet,
     SidebarComponent,
-    FooterComponent
 ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent {
-
+  logo:string="assets/imagenes/stelarlogo.png";
 }

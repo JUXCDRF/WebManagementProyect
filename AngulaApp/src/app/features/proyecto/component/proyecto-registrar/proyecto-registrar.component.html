@@ -7,11 +7,17 @@
         <div class="CenterContenedor">
             <div class="divContenedor">
                 <label for="">Nombre Proyecto</label>
-                <input type="text" class="form-control" formControlName="nombre" placeholder="Ingresar nombre">
+                <input  type="text" 
+                        class="form-control" 
+                        formControlName="nombre" 
+                        placeholder="Ingresar nombre"
+                        [ngClass]="{'is-invalid': frmProyectoDatos.get('nombre')?.invalid && frmProyectoDatos.get('nombre')?.touched}">
+                <app-message-error [control]="frmProyectoDatos.get('nombre')"></app-message-error>
             </div>
             <div class="divContenedor">
                 <label for="">Fecha Inicio del Proyecto</label>
                 <input type="date" class="form-control" formControlName="fechinicio" >
+                <app-message-error [control]="frmProyectoDatos.get('fechinicio')"></app-message-error>
             </div>
             <div class="divContenedor">
                 <label for="">Permiso</label>
@@ -19,6 +25,7 @@
                     <option value="1" selected>Editar</option>
                     <option value="2">Lectura</option>
                 </select>
+                <app-message-error [control]="frmProyectoDatos.get('permisos')"></app-message-error>
             </div>
         </div>
     </div>

@@ -8,6 +8,10 @@ using WebManagementProyect.CInfrastructure.Repositories;
 using WebManagementProyect.BApplication.UseCases.ProyectoUseCases.CrearProyecto;
 using WebManagementProyect.BApplication.UseCases.TokenUseCases.ValidarToken;
 using WebManagementProyect.BApplication.UseCases.TareaUseCases.ListarTarea;
+using WebManagementProyect.BApplication.UseCases.TareaUseCases.CrearTarea;
+using WebManagementProyect.BApplication.UseCases.TareaUseCases.ActualizarTarea;
+using WebManagementProyect.BApplication.UseCases.TareaUseCases.ObtenerTarea;
+using WebManagementProyect.BApplication.UseCases.TareaUseCases.CambiarEstadoTarea;
 
 namespace WebManagementProyect.CInfrastructure.Extencion;
 
@@ -30,6 +34,10 @@ public static class ExtencionsBilder
         services.AddScoped<RegistrarProyectoHandler>();
         services.AddScoped<ValidarTokenHandler>();
         services.AddScoped<ListarTareaHandler>();
+        services.AddScoped<CrearTareaHandler>();
+        services.AddScoped<ActualizarTareaHandler>();
+        services.AddScoped<ObtenerTareaHandler>();
+        services.AddScoped<EstadoTareaHandler>();
         return services;
     }
 }

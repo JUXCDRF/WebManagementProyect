@@ -1,0 +1,32 @@
+@if (control && control.invalid) {
+  @if(control.hasError("required")) {
+    <div class="Error-Campo">
+      Este campo es obligatorio.
+    </div>
+  }
+  @if(control.hasError("maxlength")) {
+    <div class="Error-Campo">
+      Ha superado el máximo de caracteres.
+    </div>
+  }
+  @if(control.hasError("minlength")) {
+    <div class="Error-Campo">
+      No cumple el mínimo de caracteres.
+    </div>
+  }
+  @if(control.hasError("email")) {
+    <div class="Error-Campo">
+      Correo no válido.
+    </div>
+  }
+  @if(control.hasError("min")) {
+    <div class="Error-Campo">
+      Valor demasiado bajo.
+    </div>
+  }
+  @if(control.hasError("max")) {
+    <div class="Error-Campo">
+      Valor demasiado alto.
+    </div>
+  }
+}

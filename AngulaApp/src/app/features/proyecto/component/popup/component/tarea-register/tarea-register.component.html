@@ -1,30 +1,53 @@
 <form [formGroup]="frmTareaDatos">
     <div class="container TokenContenedor p-3">
         <div class="d-flex justify-content-between align-items-center">
-            <button class="btn btn-success {{data?'ShowBoton':'HideBoton'}}" (click)="funRegistrar()">Registrar</button>
+            <button class="btn btn-success" [ngClass]="{'Hide':!data.registrar}" (click)="funRegistrar()">Registrar</button>
+            <button class="btn btn-primary" [ngClass]="{'Hide':!data.actualizar}" (click)="funActualizar()">Actualizar</button>
             <a type="button" class="btn" (click)="funCerrar()"><i class="bi bi-x-circle"></i></a>
         </div>
         <hr/>
         <div class="CenterContenedor">
             <div class="divContenedor">
                 <label for="">Titulo</label>
-                <input type="text" class="form-control" formControlName="titulo" placeholder="Ingresar titulo Personal">
+                <input  type="text" 
+                        class="form-control" 
+                        formControlName="titulo" 
+                        placeholder="Ingresar titulo Personal"
+                        [ngClass]="{'is-invalid': frmTareaDatos.get('titulo')?.invalid && frmTareaDatos.get('titulo')?.touched}"><div></div>
+                <app-message-error [control]="frmTareaDatos.get('titulo')"></app-message-error>
             </div>
             <div class="divContenedor">
-                <label for="">Fecha </label>
-                <input type="date" class="form-control" formControlName="fecha" placeholder="Ingresar fecha del Usuario">
+                <label for="">Fecha</label>
+                <input  type="date" 
+                        class="form-control" 
+                        formControlName="fecha"
+                        [ngClass]="{'is-invalid': frmTareaDatos.get('fecha')?.invalid && frmTareaDatos.get('fecha')?.touched}"><div></div>
+                <app-message-error [control]="frmTareaDatos.get('fecha')"></app-message-error>
             </div>
             <div class="divContenedor">
-                <label for="">Nombre (Alias) </label>
-                <input type="time" class="form-control" formControlName="horainicio" placeholder="Ingresar hora del Usuario">
+                <label for="">Hora Inicio</label>
+                <input  type="time" 
+                        class="form-control" 
+                        formControlName="horainicio"
+                        [ngClass]="{'is-invalid': frmTareaDatos.get('horainicio')?.invalid && frmTareaDatos.get('horainicio')?.touched}"><div></div>
+                <app-message-error [control]="frmTareaDatos.get('horainicio')"></app-message-error>
             </div>
             <div class="divContenedor">
-                <label for="">Nombre (Alias) </label>
-                <input type="time" class="form-control" formControlName="horafin" placeholder="Ingresar hora del Usuario">
+                <label for="">Hora Fin</label>
+                <input  type="time" 
+                        class="form-control" 
+                        formControlName="horafin"
+                        [ngClass]="{'is-invalid': frmTareaDatos.get('horafin')?.invalid && frmTareaDatos.get('horafin')?.touched}"><div></div>
+                <app-message-error [control]="frmTareaDatos.get('horafin')"></app-message-error>
             </div>
             <div class="divContenedor">
-                <label for="">Nombre (Alias) </label>
-                <input type="text" class="form-control" formControlName="descripcion" placeholder="Ingresar alias del Usuario">
+                <label for="">Descripción</label>
+                <textarea   class="form-control" 
+                            formControlName="descripcion" 
+                            placeholder="Ingresar descripcion de la tarea"
+                            [ngClass]="{'is-invalid': frmTareaDatos.get('descripcion')?.invalid && frmTareaDatos.get('descripcion')?.touched}">
+                </textarea><div></div>
+                <app-message-error [control]="frmTareaDatos.get('descripcion')"></app-message-error>
             </div>
         </div>
     </div>

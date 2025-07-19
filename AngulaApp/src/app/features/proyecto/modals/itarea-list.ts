@@ -1,6 +1,9 @@
 export interface IproyectoTarea{
     tituloprincipal:string
-    tareas:ItareaList[]
+    tareas:ItareaList[],
+    pagesize:number,
+    pagenumber:number,
+    totalcount:number
 }
 
 export interface ItareaList {
@@ -9,5 +12,6 @@ export interface ItareaList {
     horainicio:string,
     horafin:string,
     titulo:string,
-    descripcion:string
+    descripcion:string,
+    estado:number
 }

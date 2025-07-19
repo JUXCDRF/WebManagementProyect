@@ -12,5 +12,14 @@
 .BodyContenedor{
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: .9fr .1fr;
+    grid-template-rows:1fr;
+}
+
+.ImageContenedor{
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: start;
+    padding: 15px;
+    align-items: center;
 }

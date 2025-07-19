@@ -10,7 +10,6 @@ export class ProyectoCreadoEventService {
   proyectoCreado$=this.proyectoCreado.asObservable();
 
   NotificarProyectoCreado(){
-    console.log('Notificando creación de proyecto');
     this.proyectoCreado.next();
   }
 }
